@@ -17,7 +17,7 @@ class create:
 
     def get_name(self):
         self.name=input("Enter name of VM: ")
-        return name
+        return self.name
 
     def get_ram(self):
         ram=input("Enter RAM size(MiB): ")
