@@ -16,7 +16,7 @@ class create:
         print("Prerequisite Check \n donex")
 
     def get_name(self):
-        name=input("Enter name of VM: ")
+        self.name=input("Enter name of VM: ")
         return name
 
     def get_ram(self):
@@ -61,7 +61,7 @@ class create:
                 +" --name "+self.get_name()
                 +" --ram "+self.get_ram()
                 +" --vcpus "+self.get_cpus()
-                +" --disk path="+self.disk_path+".qcow2,bus="+self.bus+",size="+self.get_size()
+                +" --disk path="+self.disk_path+self.name+".qcow2,bus="+self.bus+",size="+self.get_size()
                 +" --location "+self.location
                 +" --extra-args="
                 +"'ks="+self.get_ksfile()
@@ -72,7 +72,7 @@ class create:
                 +" dns="+self.get_dns()
                 +"' --network bridge:"+self.net_adp)
         print(self.finalcmd)
-        #os.system(self.finalcmd)
+        os.system(self.finalcmd)
 
 if __name__ == '__main__':
     vm = create()
