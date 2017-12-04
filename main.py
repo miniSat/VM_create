@@ -10,6 +10,7 @@ class create:
         self.bus="virtio"
         self.location="http://172.22.26.203/repos/fedora25/"
         self.net_adp="virbr0"
+        self.ksfile="http://172.22.26.203/repos/ksnew2.cfg"
         
     def check_packages(self):
         os.system("./libvirt.sh")
@@ -30,10 +31,6 @@ class create:
     def get_size(self):
         size=input("Enter size you want to allocate to VM(GiB): ")
         return size
-
-    def get_ksfile(self):
-        ksfile=input("Enter the path of kickstart config file in your server: ")
-        return ksfile
 
     def get_ksdevice(self):
         ksdevice=input("Enter the network interface to be used during installation: ")
@@ -64,8 +61,8 @@ class create:
                 +" --disk path="+self.disk_path+self.name+".qcow2,bus="+self.bus+",size="+self.get_size()
                 +" --location "+self.location
                 +" --extra-args="
-                +"'ks="+self.get_ksfile()
-                +" ksdevice="+self.get_ksdevice()
+                +"'ks="+self.ksfile
+                +" ksdevice=ens3"
                 +" ip="+self.get_ipaddress()
                 +" netmask="+self.get_netmask()
                 +" gateway="+self.get_gateway()
