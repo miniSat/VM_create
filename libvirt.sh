@@ -2,30 +2,21 @@
 
 log_file=lvinstall.log
 
-function check {
-	if  yum list installed "$@" >/dev/null 2>&1 
-	then
-		#echo "if"
-		echo "$@ already installed."
-	else
-		echo "$@ is installing"
-		dnf install $@ -y
-	fi	
-}
-
 #function installation for fedora
 function for_fedora { 
-	check libvirt
-	check virt-install
-	check virt-manager
+	dnf install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer -y
+} 
+
+function for_centos { 
+	yum -y install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer -y
 } 
 
 
 distro=$(lsb_release -i | cut -f 2)
 if [ "$distro" == "Fedora" ]
 	then
-	for_fedora hello_fedora
-elif [ "$distro" == "Ubuntu" ]
+	for_fedora
+elif [ "$distro" == "CentOS" ]
 	then 
-	for_ubuntu hello_ubuntu
+	for_centos
 fi
